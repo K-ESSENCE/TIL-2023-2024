@@ -69,3 +69,27 @@ SSH(Secure SHell)란 원격으로 컴퓨터(서버)에 안전하게 접속하기
 그리고 비밀번호 git clone 시 물어보면 해당 토큰 번호 써야됨
 
 잊어버렸으면 재발행. 안그러면 한번 보고 못봄
+
+### 정적 배포
+
+https://velog.io/@jay/Nextjs13-Static-Export#static-export-%EC%82%AC%EC%9A%A9%EB%B2%95
+참고 자료
+
+13버젼의 경우
+next config 에서
+
+output: "export", 를 추가하고 빌드를 진행하게 되면 out 폴더 가 생기고 정적빌드가 완료된다.
+
+물론 next의 기능은 전혀 못살리는 방향.
+
+배포시 getServerSide 를 사용하라는 에러 발생.
+
+그러나 이 옵션을 쓰기에는 부적절한 상황인것을알아 찾아보니 버셀 깃헙 이슈에 1550 에 적혀있었음
+
+pages 라우터로 내리거나 버젼을 13.4.13으로 내리면 output:export로 cra처럼 배포 가능
+
+원인은 app router의 호환성.
+
+공식문서에도 안적혀있어 추가되어있어야된다는 등의 문구들이 존재
+
+를 해결해도 not-found를 404로 바꾸는등의 비동작 문제 여전히 있어서 결국 Amplify로 일단 배포하기로
