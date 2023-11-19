@@ -34,3 +34,23 @@ develop -> release 에서 테스트 -> main에 합침
 예전에 테코톡 봤는데. 커밋하나 선택해서 브랜치에 붙이는거
 
 //내용추가
+
+### 브랜치 삭제
+
+원격 브랜치와 로컬 브랜치 삭제
+
+-D (강제삭제) -d 그냥삭제
+
+git branch -D <브랜치이름>
+
+원격 삭제
+
+git push <원격저장소이름> -d <원격 브랜치 이름>
+
+git branch -a 로 원격 로컬 둘 다확인
+
+git branch -r 하면 원격 저장소만 확인
+
+git push origin -d test2
+
+하면 삭제
