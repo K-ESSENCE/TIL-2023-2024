@@ -318,6 +318,42 @@ cpu 버스트가 짧은 기존 프로세스는 도착하자마자 cpu를 얻어�
 
 ### Multiple-processeor scheduling
 
-cpu가 여러개인경우의 스케쥴링
+![Alt text](image-21.png)
 
-18:41
+cpu가 여러개인경우의 스케쥴링은 더욱 복잡해진다.
+
+CPU가 여러개가 있으면 load sharing이 잘 되어야됨 (누구는 일하고 누구는 놀고있고 이렇게 되면 안됨)
+
+SMP 방식과 Asymmetric 한 방식이있음
+
+symmertric 이란 모든 cpu가 대등한것
+
+그래서 각 cpu가 알아서 스케쥴링
+
+asymmetric 한것은 하나의 cpu가 전체적인 컨트롤을 담당하고 나머지는 따름
+
+### Real-Time Scheduling
+
+![Alt text](image-22.png)
+
+정해진 시간안에 반드시 끝내도록 스케쥴링해야하는것
+
+영화를 보는것도 데드라인은 존재하지만 반드시 지켜야되는것은 아닌. 그런것에서는 반드시 지키는것보다는 다른 프로세스도 존재해서 소프트 리얼 타임 태스크는 데드라인을 꼭 보장은 안함
+
+하드 는 보장.
+
+### Thread Scheduling
+
+![Alt text](image-23.png)
+
+프로세스안에 cpu 수행단위가 여러개있는게 스레드
+
+로컬 스케쥴링이랑 글로벌이있는데
+
+로컬->유저가 직접 유저레벨에서 관리해서 운영체제는 스레드의 존재를 모름
+
+커널 레벨 의 경우 운영체제가 이미알고있음
+
+### Algorithm Evaluation
+
+![Alt text](image-24.png)
