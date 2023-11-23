@@ -357,3 +357,23 @@ asymmetric 한것은 하나의 cpu가 전체적인 컨트롤을 담당하고 나
 ### Algorithm Evaluation
 
 ![Alt text](image-24.png)
+
+Queueing models
+
+굉장히 이론적인 개념
+
+여기선 서버가 cpu 도착한 프로세스들을 cpu 능력에 따라서 처리하고 빠져나가는것
+
+확률 분포로 주어지는 arrival rate 와 service rate등을 통해 각종 performance index 값을 계산
+
+Implemetation Measurement 구현 / 성능 측정
+
+큐잉 모델이랑 상반되는 개념 확률분포가아닌 실제 시스템에서 돌려보고 성능을 측정하고 비교하는 것
+
+Simulation
+
+주어진 알고리즘에 따라 어떻게 될것인지 배치 해보고 기다린 시간 계산 해서 결과 내는 것
+
+
+실제프로그램에서 cpu 버스트와 관련된 것들을 쭉 추출하고 시뮬레이션 프로그램에 인풋으로 넣고 결과를 확인
+
