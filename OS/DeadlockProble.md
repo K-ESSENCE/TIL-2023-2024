@@ -145,4 +145,7 @@ Circular Wait
 
 safe라는건 현재남아있는것만으로도 프로세스를 끝낼수있는 애들이야기.
 
-15:42 지금 프로세스
+### Deadlock Detection and Recovery
+자원을 요청하면 다 주다가 시스템이 이상하다 그러면 이제 detection을 해서 발견이되면 recovery를 하는 방법 
+
+20:53
