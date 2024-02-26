@@ -214,4 +214,46 @@ dirty bit이라고도하는데
 
 그런애들을 지울떄는 백킹스토어에 ㅇ하고 지워야됨
 
-27:56
+### Page Frame의 Allocation
+
+프로그램마다 적어도 어느정도 몇개의 페이지를 이뤄야만 페이지폴트가 잘안나는 일련의 페이지 갯수가존재함.
+
+프로그램이 실행되면서 명령어만 실행하는게 아니라 데이터 등 여러페이지를 동시참조함.
+
+allocation 이라는건 각각의 프로그램한테 어느정도의 메모리 페이지를 나누어주냐
+
+프로그램 3개가 실행되고있다면 전체 땅덩어리에서 얼마만큼 줄것인지.
+
+Equal allocation : 모든 프로세스에 똑 같은 갯수 할당
+
+Proportional allocation : 프로세스 크기에 비례하여 할당
+
+Priority allocation : 프로세스의 priority 에 따라 다르게 할당.
+
+### Global vs Local Replacement
+
+미리할당안하는거 => Global Replacement
+
+LRU LFU 같은 방법은 어느정도 프로그램한테 페이지를 할당하는 효과는 없음
+Working set /PFF 는 최소한 필요로하는 걸 동시에 메모리에 올려놓음.
+
+Local replacement
+자신에게 할당된 frame 내에서만 replcaement
+FIFO LRU LFU 등의 알고리즘을 process 별로 운영시
+
+### Thrashing
+
+최소 메모리도 할당이 안되면 페이지폴트가 자주나는데.
+
+프로그램한테 메모리가 너무 적게 할당되서 아주 빈번하게 페이지폴트가 일어나는 상황을 Thrashing 이라고 함.
+
+페이지 폴트 rate가 높아지면
+CPU utilization 이 낮아짐.
+=> 누가 cpu를 잡더라도 페이지폴트가 나서.
+
+그럼 메모리에서 페이지를 쫓아내고 가지고오고 (swap )하느라 바쁨
+![alt text](image-85.png)
+
+시스템이 굉장히 비효율적이된다.
+
+41:10 이걸막기위해선
