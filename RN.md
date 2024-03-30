@@ -32,9 +32,24 @@ Expo Cli 보다 Rn이 더 불편하다.  단지 있는건 Expo이전에 존재�
 __JS코드와 네이티브 기기 소스 코드를 합쳐야 한다면 Rn cli 를 쓰는게 좋다.__ 
 
 
-## 프로젝트 생성
+## 프로젝트 생성 / 실행
 
 npx create-expo-app
+
+npm start 
+
+expo 앱 => scan 
+
+
+## 로컬 개발 환경 설정 
+
+Android studio => create device => more action => virtual device => play store가 에뮬레이터에 포함되어있어야 expo 앱 다운로드해서 미리보기 가능 
+
+ios => appstore = > xcode => preferences 메뉴 => location => cli tools에 버전선택 
+
+윈도우는 아이폰 테스트불가. 
+
+a를누르면 안드 i를누르면 ios 시뮬레이터 실행 
 
 
 
