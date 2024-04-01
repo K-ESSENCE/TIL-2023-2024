@@ -88,4 +88,68 @@ wifi같은경우는 shared라 보안에 취약함.
 bandwidth냐 shared냐 하는것들이 엔드시스템이 인터넷에 연결될때 중요한 요소.
 
 - DSL (Access net: digital subscriber line)
-  39
+
+케이블회사가 우리에게 Access network를 제공해주는 회사다.
+
+전화회사에서 제공해주는 엑세스 네트워크를 dsl 이라고 부른다.
+
+ADSL => asynchronus
+
+전화회사에서 제공하는 네트워크는 dedicated되어있다.
+
+일반적으로 DSL phone line에서 제공하는 bandwidth는 upstream rate 는 1Mbps보다 적고
+다운로드 스트림은 10Mbps 정도가된다
+
+왜냐 우리가 집에서 데이터 생산자라기보다. 다운로더 에 가깝기때문.
+
+케이블 네트워크를 위해서 인터넷에 접속하기위해서는 케이블모뎀이있어야됨
+
+전화회사를 통해서 연결할땐 dsl이고 케이블 네트워크를위해선 케이블 모뎀
+
+물리적으로 봣을때에는 케이블 모뎀이랑 스플리터가 함께있기도하지만.
+
+케이블 headend로 가면 CMTS라는 멀티플렉싱 장비가 있음.
+
+CMTS => cable modem termination system
+
+여기에서 케이블 모뎀에서 나온 데이터를 인터넷으로 넘겨주는 역할을함
+
+케이블 네트워크를 액세스 네트워크로 사용할때와 전화를 사용할떄 차이점이있음
+
+케이블 네트워크의 경우에는 한 회선을 공유하는 경우가많음
+
+왜냐면 케이블 방송은 일반적으로 broad casting이라 동일시간에 같은 내용이 나옴.
+
+그래서 케이블 회사는 bandwidth가 큰 회선을 하나 연결하고 그걸 여러집이 share하게 하면 굉장히 효율적.
+
+그래서 케이블 회사를 통해서는 dedicated링크가아닌 shared 링크를 통함.
+
+이 케이블 네트워크가 제공하는 네트워크를 HFC 라고함 HFC?=> hybrid filber coax
+
+케이블 헤드에는 케이블헤드끼리 묶여있는 계층적인 구조가 또있음.
+
+그래서 여러 케이블 헤드를 묶어주려면 더 많은 대역폭이 필요. 그래서 큰 bandwidth를 제공하는 **fiber**로 연결함
+
+![alt text](image.png)
+
+그앞은 coax cable
+
+이런 배경으로 케이블 네트워크는 HFC라고도 많이 부른다.
+
+케이블 네트워크도 전화랑 비슷하게 업스트림, 다운스트림이 다름.
+다운스트림이 30 Mbps 업스트림이 2Mbps
+단순하게 봐선 더 크네 할 수 있는데 shared network라서 내가 다 사용할때도있지만 아닐때도 있다.
+
+그래서 최대가 30Mbps 다.
+
+### Acess net: home network
+
+홈 네트워크의 코어에는 router가 있음.
+
+rotuer에는 데스크탑은 직접 물려있고 wifi access point가 연결되어있을수도있음.
+
+router라는 장비는 여러 endsystem들을 묶어서 케이블 혹은 전화회사 네트워크에 연결하는 역할을 함.
+
+그래서 이 라우터가 dsl 모뎀 혹은 cable 모뎀 에 연결 그리고 이모뎀이 headend나 central office에 연결
+
+53:51
