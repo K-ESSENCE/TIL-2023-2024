@@ -184,3 +184,224 @@ macOS / Linux: -v $(pwd):/app
 Windows: -v "%cd%":/app
 
 ```
+
+컨테이너가 볼륨 및 바인드 마운트와 상호작용하는 방식?
+
+컨테이너 내부의 어떤 폴더가 호스트 머시느이 폴더에 마운트 되거나 연결됨
+
+컨테이너 내부에 이미 파일이 있다고 가정하면 외부 볼륨에도 파일이 존재.
+
+토커가 호스트 머신의 로컬 파일을 덮어쓰지않음 => 그랬다간 실수로 컴퓨터에서많은 것들이 삭제될수도있음
+
+그래서 로컬호스트 폴더를 덮어쓰는게아니라 로컬호스트 폴더안에 있는 컨텐츠가 컨테이너를 뒤덮어씀
+
+이로인해서 이 경우 node_moudles가 삭제됨
+
+그래서 도커에게 덮어쓰지말아야될 부분이있다는것을 알려줘야됨
+
+익명의 볼륨을 하나더추가하는 방식으로 해결 가능 -v app/node_modules
+
+도커는 항상 컨테이너에 설정하는 모든 볼륨을 평가함
+
+- 경로에 "" 처리해줬는데 잘못해서 app앞까지만했는데 app까지 해줘야됨
+
+이렇게 바인딩까지해주면 html 변경사항같은것들도 바로 반영된다.
+
+익명 볼륨을 넣어주면 바인드 마운트 폴더의 내용물로 node_modules가 덮어쓰여지지않기떄문에 가능함
+
+### Node mon 사용
+
+콘솔로그 추가했는데 로그에 안찍히는이유? => 런타임
+
+웹서버 재시작해야됨
+
+컨테이너를 재시작할 필요없고 서버만 재시작하면됨 그러나 간단하지않음...
+
+이게 nodejs의 문제
+
+파일시스템을 감지해서 변경이있을떄마다 서버 재시작하는 nodemon 사용하면편함
+
+"scripts": {
+"start": "nodemon server.js"
+},
+"devDependencies": {
+"nodemon": "2.0.4"
+}
+
+윈도우에선 안될수있다...
+
+### 요약
+
+docekr run -v /app/data => 익명
+docker run -v data:/app/data => 기명
+docker run -v /path:/app/code => 바인드
+
+기명 / 바인드 마운트는 여러 컨테이너랑 공유가능하고 rm으로 지워도 안사라짐
+
+도커 명령으로는 삭제불가능
+
+이것들은 전부 컨테이너 내부 데이터를 관리하기위한 주요 방식임.
+
+익명 볼륨은 외부 경로보다 컨테이너 내부 경로의 우선순위를 높이는데 사용가능
+
+### 읽기전용 볼륨
+
+볼륨은 기본적으로 read-write
+
+-v path:/app:ro
+
+변경해서는 안되는 컨테이너 내부의 파일을 실수로 변경하지않도록 명시적으로 방지해라
+
+### 도커볼륨 관리하기
+
+볼륨은 도커에의해 관리됨
+
+docker volume ls
+
+도커에의해 관리된다는것은 컨테이너를 실행할때 볼륨이 존재하지않는다면 생성하는 의미이기도함
+
+docker volume create 명령어로 자체 볼륨 생성도 가능
+
+docker volume create [OPTIONS] [VOLUME]
+
+docker volume inspect
+
+언제만들어졌는지 mountPoint , 라벨 등이 나옴
+
+docker volume rm
+
+이역시 쓰고있는애가 중지되어야 삭제 가능
+
+### COPY vs 바인드
+
+바인드가있으면 copy를 뭐하러? => 그래서 지우고 실행
+
+여전히 잘 작동함.
+
+바인드마운트가있으면 copy를 제거할수있음
+
+하지만 docker run 은 개발중에 사용하는 명령어
+
+개발을 마친뒤에는 이 컨테이너를 가져와 서버에 넣음
+
+서버에서 바인드로 실행하진않음.
+
+데이터가 유지되도록 볼륨을 쓸수있어도 바인드는 사용안할거임
+서버상의 제품상태로 실행중이라면 실행되는 동안 실시간으로 연결된 소스코드가없을것임
+
+프로덕션에서는 항상 코드의 스냅샷을 가지고싶을것이고 그걸 해결해주는게 COPY 명령어
+
+### docker ignore
+
+복사되는 내용을 제한할수있는데
+
+.dockerignore를 작성하면 됨 마치 git 처럼
+
+이런 것들 작성가능
+Dockerfile
+.git
+
+### 인수 & env파일
+
+인수를 사용하면 도커파일에서 특정 도커파일 명령으로 다른값을 추출하는데 사용할 수 있는 변수를 사용가능
+
+--build arg 옵션으로
+
+환경변수는 dockerfile내부에서 사용
+
+dockerfile내부 ENV옵션으로 전달 가능 아니면 run 시 --env
+
+ENV PORT 80
+
+EXPOSE $PORT
+
+이런식으로 $을써서 도커에게 알리고 쓸수있음
+
+run 시에는 run --env PORT=8000 의 형태로 사용가능 dockerfile 내부에 연결됨 8000으로
+
+--env말고 -e 로가능 -v마냥 여러개 -e -e 추가 가능
+
+### 빌드인수
+
+빌드타임인수? => 이미지를 빌드할때 다른 값을 플러그인할수있음
+
+dockerfile ARG
+
+인수는 도커파일내부에서만 사용가능한데 CMD 에서는 사용불가
+
+```
+FROM node
+
+ARG DEFAULT_PORT=80
+
+WORKDIR /app
+
+COPY package.json /app
+# 패키지 제이슨이 무겁기떄문에 한단계 캐싱
+```
+
+FROM node
+
+ARG DEFAULT_PORT=80
+
+WORKDIR /app
+
+COPY package.json /app
+
+# 패키지 제이슨이 무겁기떄문에 한단계 캐싱 시켜두는 작업
+
+RUN npm i
+
+COPY . /app
+
+ENV PORT $DEFAULT_PORT
+
+EXPOSE $PORT
+
+# VOLUME [ "/app/feedback" ]
+
+COPY . .
+
+CMD [ "npm","start" ]
+
+```시켜두는 작업
+
+RUN npm i
+
+COPY . /app
+
+
+# VOLUME [ "/app/feedback" ]
+
+COPY . .
+
+ARG DEFAULT_PORT=80
+
+ENV PORT $DEFAULT_PORT
+
+EXPOSE $PORT
+
+
+CMD [ "npm","start" ]
+
+```
+
+build 시에 --build-arg DEFAULT_PORT=8000 같은 형태로 사용
+
+여기서 순서조정
+
+왜냐면 ARG나 ENV역시도 레이어에 추가되어서 변경점이 생기는순간 뒤에것드도 재실행되기떄문에 후순위로.
+
+### 요약
+
+컨테이너가 읽고쓸슁ㅆ고 제거후에 살아남는애들
+
+직접적인 상호적용 => 바인드
+
+컨테이너는도커의 핵심 / 데이터읽고쓰기가능
+
+컨테이너는 이미지 위에 read-write레이어추가 그러나 제거되면 데이터 손실
+
+격리 개념은 유용하지만 아닐때도잇음
+
+
