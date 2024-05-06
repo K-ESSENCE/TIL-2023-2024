@@ -148,3 +148,56 @@ scss 적용하면 sass-loader가 가장 끝.
   형태로만들어서 주입하는형태
 
 엔트리 -> 로더 -> 빌드 -> 아웃풋(+플러그인)
+
+webpack 페이지가보면 loader랑 plugins 들의 정보를 확인가능
+https://webpack.js.org/loaders/
+https://webpack.js.org/plugins/
+
+## 웹팩 데브 서버
+
+### 필요한 이유
+
+코드 하나하나 바꿀떄마다 다시빌드해야되기떄문에 이걸 편하게해주는게 웹팩 데브서버
+
+### 개요
+
+웹팩 데브 서버로 빌드한 결과물은 메모리에 저장되고 파일탐색기나 프로젝트 폴더에서는 안보임
+
+컴퓨터 구조 관점에서 파일 입출력 보다 메모리 입출력이 더 빠르고 컴퓨터 자원이 덜 소모됨
+
+인메모리 레벨로만 결과물을 낸다.
+
+### 스크립트
+
+    "dev": "webpack-dev-server"
+
+현대 프론트엔드 프레임워크는 대부분 이걸로 돌아간다고함 근데 강의가 좀된거라
+
+### 특징
+
+1. 계속 컴파일/ 새로고침
+2. 탐색기에 없다.
+   그리고 마지막에 빌드
+
+### HTML webpack plugin
+
+빌드결과물에대한 파일을 만들어주고 빌드한 애들다 넣어줌
+template:index.html
+index.html을 기반으로 빌드 결과물을 추가해준다.
+
+### 퀴즈
+
+publicpath => cdn과 관계된 속성
+vue의 아버지답게 vue-loader
+vue-style-loader,css-loader
+
+js => babel-loader
+
+file-loader / png|jpg|gif|svg
+[name].[ext]?[hash]
+이미지들을 이런식으로 변경
+
+resolve? => 웹팩으로 파일의 연관관계를 해석할때 해석방식을 지정하는것.
+확장자 같은거 재껴도 해석해주겠다 extension옵션
+devServer
+preformance 성능 관련 힌트 주는 부분=> 결과물의 사이즈가 초과되면 워닝주는 속성
